@@ -20,6 +20,8 @@ html{
     );
 }
 
+
+
 p{
     font-size: 11px;
     color: black;
@@ -53,4 +55,8 @@ section {
 
 section.sharedfeatures{
 	padding-bottom: 0px;
+}
+
+li{
+	list-style-type: none;
 }
