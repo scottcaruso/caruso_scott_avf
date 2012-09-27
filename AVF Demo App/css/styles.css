@@ -1,0 +1,62 @@
+/*
+ Scott Caruso
+ AVF 1210
+ Demo App - CSS Sheet
+ */
+
+html{
+    background-image: linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
+
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.1, rgb(237,242,252)),
+        color-stop(1, rgb(89,119,179))
+    );
+}
+
+
+
+p{
+    font-size: 11px;
+    color: black;
+    text-shadow: none;
+}
+
+h1 {
+	font-size: 20px;
+	text-decoration: underline;
+}
+
+h2 {
+	font-size: 18px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+	font-size: 14px;
+}
+
+p {
+	font-size: 10px;
+}
+
+section {
+	padding-bottom: 30px;
+}
+
+section.sharedfeatures{
+	padding-bottom: 0px;
+}
+
+li{
+	list-style-type: none;
+}
