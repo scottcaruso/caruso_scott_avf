@@ -53,12 +53,12 @@ var accessContacts = function(){
 
 	// find all contacts with 'Bob' in any name field
 	var options = new ContactFindOptions();
-	options.filter="Bob"; 
+	options.filter=""; 
 	var fields = ["displayName", "name"];
 	navigator.contacts.find(fields, onSuccess, onError, options);
 };
 
 //Notification - Beep
 var makeBeep = function(numberoftimes){
-	navigator.notification.beep(numberoftimes)
+	navigator.notification.beep(numberoftimes);
 }

@@ -9,6 +9,13 @@ $("#camera").on("click", function(){
 });
 
 $("#notification").on("click", function(){
-	alert("This works!");
-	makeBeep(3);
+	makeBeep(3);	
 });
+
+$("#geolocation").on("click", function(){
+	accessGeolocation();
+});
+
+$("#contacts").on("click", function(){
+	accessContacts();
+})
