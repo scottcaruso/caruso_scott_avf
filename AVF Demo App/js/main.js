@@ -4,12 +4,11 @@
 
 
 $("#camera").on("click", function(){
-	alert("This works!");
 	accessCamera();
 });
 
 $("#notification").on("click", function(){
-	makeBeep(3);	
+	makeBeep(1);	
 });
 
 $("#geolocation").on("click", function(){
