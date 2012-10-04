@@ -18,17 +18,22 @@ var accessCamera = function(){
 	}
 };
 
+function accessGeolocationTest (){
+	var x = 5;
+	return x
+};
+
 //Geolocation
 var accessGeolocation = function(){
 	var onSuccess = function(position) {
-	    alert('Latitude: '          + position.coords.latitude          + '\n' +
-	          'Longitude: '         + position.coords.longitude         + '\n' +
-	          'Altitude: '          + position.coords.altitude          + '\n' +
-	          'Accuracy: '          + position.coords.accuracy          + '\n' +
-	          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-	          'Heading: '           + position.coords.heading           + '\n' +
-	          'Speed: '             + position.coords.speed             + '\n' +
-	          'Timestamp: '         + position.timestamp                + '\n');
+	    var geocoords = new Object();
+			geocoords.latitude = position.coords.latitude;
+			geocoords.longitude = position.coords.longitude;
+			geocoords.altitude = position.coords.altitude;
+			geocoords.accuracy = position.coords.altitudeAccuracy;
+			geocoords.heading = position.coords.heading;
+			geocoords.speed = position.coords.speed;
+			geocoords.timestamp = position.timestamp;
 	};
 
 	// onError Callback receives a PositionError object
@@ -36,7 +41,7 @@ var accessGeolocation = function(){
 	function onError(error) {
 	    alert('code: '    + error.code    + '\n' +
 	          'message: ' + error.message + '\n');
-	}
+	};
 
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);
 };
@@ -61,4 +66,4 @@ var accessContacts = function(){
 //Notification - Beep
 var makeBeep = function(numberoftimes){
 	navigator.notification.beep(numberoftimes);
-}
+};
