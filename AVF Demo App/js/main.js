@@ -38,7 +38,7 @@ function onDeviceReady(){
 			};
 	});
 
-	$("#contacts").on("click", function(){
+	$("#compass").on("click", function(){
 		var heading = localStorage.getItem("heading");
 		if (heading >= 0 && heading <= 45){
 			var direction = "North-Northeast";
@@ -60,4 +60,8 @@ function onDeviceReady(){
 		alert("Avast, ye landlubber! Thar fancy compass be pointin' ye on a " + direction + " course.")
 		window.location.reload;
 	});
+
+	$("#contacts").on("click", function(){
+		alert("Sorry! Scott failed miserably at coding anything good with the contact list, so it doesn't exist yet!")
+	})
 };
