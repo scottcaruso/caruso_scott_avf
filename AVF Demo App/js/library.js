@@ -4,13 +4,17 @@
 
 //Camera access
 var accessCamera = function(){
-	navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-	    destinationType: Camera.DestinationType.DATA_URL
-	 }); 
+	navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
+	    destinationType: Camera.DestinationType.FILE_URI,
+	    targetWidth: 250,
+	    targetHeight: 450}); 
 
-	function onSuccess(imageData) {
-	    var image = document.getElementById('myImage');
-	    image.src = "data:image/jpeg;base64," + imageData;
+	function onSuccess(imageURI) {
+	    localStorage.setItem("photourl",imageURI);
+	    displayImage();
+	    //var image = document.getElementById('myImage');
+	    //image.src = imageURI;
+	    //console.log(imageURI);
 	}
 
 	function onFail(message) {
@@ -18,26 +22,14 @@ var accessCamera = function(){
 	}
 };
 
-function accessGeolocationTest (){
-	var x = 5;
-	return x
-};
-
 //Geolocation
 var accessGeolocation = function(){
 	var onSuccess = function(position) {
-	    var geocoords = new Object();
-			geocoords.latitude = position.coords.latitude;
-			geocoords.longitude = position.coords.longitude;
-			geocoords.altitude = position.coords.altitude;
-			geocoords.accuracy = position.coords.altitudeAccuracy;
-			geocoords.heading = position.coords.heading;
-			geocoords.speed = position.coords.speed;
-			geocoords.timestamp = position.timestamp;
+		var myLatitude = position.coords.latitude;
+	    localStorage.setItem("latitude",myLatitude)
 	};
 
 	// onError Callback receives a PositionError object
-	//
 	function onError(error) {
 	    alert('code: '    + error.code    + '\n' +
 	          'message: ' + error.message + '\n');
@@ -46,24 +38,34 @@ var accessGeolocation = function(){
 	navigator.geolocation.getCurrentPosition(onSuccess, onError);
 };
 
-//Contacts services
-var accessContacts = function(){
-	function onSuccess(contacts) {
-	    alert('Found ' + contacts.length + ' contacts.');
+//Compass
+var accessCompass = function(){
+	function onSuccess(heading) {
+		myHeading = heading.magneticHeading;
+	    localStorage.setItem("heading",myHeading);
 	};
 
-	function onError(contactError) {
-	    alert('onError!');
+	function onError(error) {
+	    alert('CompassError: ' + error.code);
 	};
 
-	// find all contacts with 'Bob' in any name field
-	var options = new ContactFindOptions();
-	options.filter=""; 
-	var fields = ["displayName", "name"];
-	navigator.contacts.find(fields, onSuccess, onError, options);
+	navigator.compass.getCurrentHeading(onSuccess, onError);
 };
 
-//Notification - Beep
-var makeBeep = function(numberoftimes){
-	navigator.notification.beep(numberoftimes);
+//Notification 
+var makeBeep = function(times){
+	navigator.notification.beep(times);
+};
+
+//Display an image
+var displayImage = function(){
+	var imageLocation = localStorage.getItem("photourl");
+	console.log(imageLocation);
+	var ask = confirm("Would you like to display the picture you just took?");
+		if (ask){
+			$("#picturebucket").append('<div id="picturediv" class="picturediv"></div>')
+			$("#picturediv").append('<img id="newpicture" class="newpicture"></img>');
+			$("#newpicture").attr("src",imageLocation);
+		}
+	window.location="#newpicture"
 };
