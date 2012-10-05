@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<title>AVF Demo App</title>
+		<meta name="description" content="A landing page for my work this month in AVF." />
+		<meta name="keywords" content="test, school" />
+		<meta name="author" content="Scott Caruso" />
+		<meta name="viewport" content="user-scalable=no, width=device-width" />
+		<meta name="viewport" content="target-densitydpi=device-dpi" />
+		<meta name="HandheldFriendly" content="True">
+		<meta name="MobileOptimized" content="320"/>
+		<meta charset="utf-8" />
+        <link href="css/styles.css" rel="stylesheet" />	<!-- Doesn't yet exist-->
+		<!-- REMINDER FROM JQ Template: Mobile IE needs ClearType for smoothing fonts -->
+		<meta http-equiv="cleartype" content="on">
+	</head>
+	
+	<body>
+		<header>
+			<h1>Week 1 Discussion</h1>
+			<nav>
+				<a href="index.html"><p>Back to main</p></a>
+			</nav>
+		</header>
+
+		<section class="discussionpost">
+			<content>
+				<h2>Native Functions</h2>
+					<p>Though there is little doubt that a natively-build application (using Objective-C for iOS or Java for Android) provides the best overall user experience, there are a number of native application features that we can attach to our proverbial developer's toolbelts in order to build high-quality cross-platform applications that mimic much of the feel of the natively built ones. Some of the tools don't require third-party APIs like PhoneGap and can be accessed directly with HTML5, CSS, and JavaScript code!</p>
+ 
+					<p>Some of the most basic native features that the developer can access using web development principles are the touch- and gesture-based movements of the screens. There are bind events in JavaScript that allow the user to add this functionality. Utilizing CSS, the user can modify the look of the native status bar or hide the native browser window in order to simulate a more native-looking application. Using HTML5, the developer can access file uploads/downloads through the local file service, as well as accessing web audio controls. Basic geolocation can be achieved without the need of a 3rd-party program.</p>
+ 
+					<p>Some of these more native features pair well together or, at least, pair well with the PhoneGap resources that are provided. For instance, PhoneGap's camera API could be used in conjunction with the native touch functionality to drag and drop photos into graphical representations of items in a list, associating those photos and items together. One might be able to use PhoneGap's Contacts functionality to then open up a user's Facebook or Twitter page via the native browser accessed with HMTL5.</p>
+ 
+					<p>Because I'm happy with my CRUD application, my focus is going to be on demo functionality that I could then port to my Planeswalker's Binder. The most obvious one, to me, would be using PhoneGap to access the native camera, allowing the user to take pictures of his Magic the Gathering cards, and then using the Upload feature to upload those pictures to a central database where they are associated to the CRUD data. I could also see creating a drag-and-drop interface where the user can move each of his cards around and drop them into various "groups" or "categories", perhaps even dynamically changing some of the attributes of the cards.</p>
+ 
+					<p>One of my biggest lessons learned - and one that I need to keep reminding myself of - is that I need to focus on building requirements first before moving on to building "it would be cool if..." features. I often get distracted while building my code and want to fix bugs that don't yet need to be fixed or add features that don't yet need to be added (or, perhaps, polish features before all requirements are build). It seems to me that this month it will be vitally important to focus on building the requirements first, as we're starting to work with much more complex code and features. I won't have the time to devote to going on large detours away from my code; instead, I will need to continue to work hard to focus on completing what I've committed to, and then adding cool stuff later if there is still time.</p>
+			</content>
+		</section>
+	</body>
+</html>
