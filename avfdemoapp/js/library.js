@@ -69,3 +69,29 @@ var displayImage = function(){
 		}
 	window.location="#newpicture"
 };
+
+var getTwitterFeed = function(){
+	$.getJSON("http://search.twitter.com/search.json?q=election&callback=?",
+		function(data) {
+			console.log(data);
+			alert(data.completed_in);
+		});
+};
+
+var getCongressPeople = function(){
+	$.getJSON("http://www.govtrack.us/api/v1/person?roles__current=true&format=jsonp&limit=600&callback=?",
+		function(data) {
+			//console.log(data.objects[0].lastname);
+			var currentObject = data.objects;
+			for (var x = 0; x<currentObject.length; x++){
+				var parseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+				for (var y = 0; y<parseLetters.length; y++){
+					var lastnameString = new String(currentObject[x].lastname)
+					var firstLetter = lastnameString.charAt(0);
+					if (firstLetter === parseLetters[y]){
+						console.log(currentObject[x])
+					};
+				};
+			}
+		});
+}

@@ -2,10 +2,10 @@
 //AVF 1210
 //Javascript for Landing App
 
-document.addEventListener("deviceready", onDeviceReady, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
 
-function onDeviceReady(){
-	accessCompass();
+//function onDeviceReady(){
+	/*accessCompass();
 	accessGeolocation();
 	localStorage.setItem("photourl","none");
 
@@ -63,5 +63,15 @@ function onDeviceReady(){
 
 	$("#contacts").on("click", function(){
 		alert("Sorry! Scott failed miserably at coding anything good with the contact list, so it doesn't exist yet!")
+	});*/
+
+	$("#twitter").on("click", function(){
+		alert("Button pressed!");
+		getTwitterFeed();
+	});	
+
+	$("#congress").on("click", function(){
+		alert("Button pressed!")
+		getCongressPeople()
 	})
-};
+//};
