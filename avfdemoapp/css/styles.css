@@ -32,20 +32,26 @@ body {
     margin: 0 auto;
 }
 
+img.twitter {
+    float: left;
+}
+
 .left {
     float:left;
-    width:400px;
+    width:390px;
 }
 
 .right {
     text-align: center;
     float:right;
-    width:368px;
+    width:358px;
+    background-color:#E0E0E0;
     border-color: black;
     border-style: solid;
     border-width: 1px;
     position: absolute;
     left: 55%;
+    top: 2%;
 }
 
 p {

@@ -63,7 +63,8 @@ var displayImage = function(){
 	console.log(imageLocation);
 	var ask = confirm("Would you like to display the picture you just took?");
 		if (ask){
-			$("#picturebucket").append('<div id="picturediv" class="picturediv"></div>')
+			$("#displaydata").empty();
+			$("#displaydata").append('<div id="picturediv" class="picturediv"></div>')
 			$("#picturediv").append('<img id="newpicture" class="newpicture"></img>');
 			$("#newpicture").attr("src",imageLocation);
 		}
@@ -114,7 +115,7 @@ var getCongressPeople = function(){
 
 var createTwitterDiv = function(){
 	$("#displaydata").empty();
-	$("#displaydata").append('<div class="twitter" id="twittersearch"></div>')
+	$("#displaydata").append('<header><h2>Recent Election Tweets</h2></header>').append('<div class="twitter" id="twittersearch"></div>')
 };
 
 var createTweets = function(tweets){
@@ -126,7 +127,7 @@ var createTweets = function(tweets){
 		var tweetID = "tweetnumber"+x;
 		var tweetFinder = "#"+tweetID;
 		$("#twittersearch").append('<div id="'+tweetID+'"></div>')
-		$(tweetFinder).append('<img src="'+userimage+'"></a>').append('<h4>'+username+'</h4>').append('<p>'+tweetText+'</p>')
+		$(tweetFinder).append('<img src="'+userimage+'" class="twitter"></a>').append('<h4 class="twitterhead"><a href="http://www.twitter.com/'+username+'">'+username+'</a></h4>').append('<p>'+tweetText+'</p>')
 	}
 }
 
