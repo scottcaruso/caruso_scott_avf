@@ -84,9 +84,7 @@ var getCongressPeople = function(){
 	pleaseWait();
 	$.getJSON("http://www.govtrack.us/api/v1/person?roles__current=true&format=jsonp&limit=600&callback=?",
 		function(data) {
-			//console.log(data.objects[0].lastname);
 			var currentObject = data.objects;
-			console.log(currentObject[5]);
 			var parseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","O","P","Q","R","S","T","U","V","W","X","Y","Z"];	
 			createAlpha(parseLetters);
 			for (var x = 0; x<currentObject.length; x++){
@@ -100,7 +98,18 @@ var getCongressPeople = function(){
 					};
 				};
 			}
-		});
+			for (var y = 0; y<parseLetters.length; y++){
+				var currentLetter = parseLetters[y];
+				var divID = "#letter"+currentLetter;
+				var thisDiv = $(divID).html();
+				var divString = '<h2 class="congressheader">'+currentLetter+'</h2>';
+				var linkClass = "#link"+currentLetter;
+				if (thisDiv===divString){
+					$(linkClass).remove();
+					$(divID).remove();
+				};
+			};
+	});
 };
 
 var createTwitterDiv = function(){
@@ -123,11 +132,14 @@ var createTweets = function(tweets){
 
 var createAlpha = function(parseLetters){
 	$("#displaydata").empty();
+	$("#displaydata").append("<h2>Current U.S. Congresspeople</h2>")
+	$("#displaydata").append('<nav id="quickalphalinks"></nav>')
 	for (var y=0; y<parseLetters.length; y++){
 		var currentLetter = parseLetters[y];
 		var divID = "#letter"+currentLetter;
+		$("#quickalphalinks").append('<a href="'+divID+'" id="link'+currentLetter+'">'+currentLetter+'</a>  ');
 		$("#displaydata").append("<div class='"+divID+"' id='letter"+currentLetter+"'>")
-		$(divID).append("<h2>"+currentLetter+"</h2>")
+		$(divID).append('<h2 class="congressheader">'+currentLetter+'</h2>')
 	}
 };
 
@@ -137,8 +149,13 @@ var createItems = function(currentPerson,currentLetter){
 	var firstName = currentPerson.firstname;
 	var lastName = currentPerson.lastname;
 	var party = currentPerson.current_role.party;
+	var twitter = currentPerson.twitterid;
+	var twitterHandle = "@"+twitter;
 	var state = currentPerson.current_role.state;
 	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>").append("<p>State: "+state+"</p>");
+	if (twitter != ""){
+		$(divID).append('<p>Twitter Handle: '+'<a href="http://www.twitter.com/'+twitter+'">'+twitterHandle+'</a></p>')
+	}
 };
 
 var pleaseWait = function(){

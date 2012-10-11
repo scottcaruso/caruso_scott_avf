@@ -92,3 +92,7 @@ li {
     margin-right: auto;
     width: 70%;
 }
+
+h2.congressheader {
+    text-decoration: underline;
+}
