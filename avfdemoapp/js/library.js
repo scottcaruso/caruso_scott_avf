@@ -12,9 +12,6 @@ var accessCamera = function(){
 	function onSuccess(imageURI) {
 	    localStorage.setItem("photourl",imageURI);
 	    displayImage();
-	    //var image = document.getElementById('myImage');
-	    //image.src = imageURI;
-	    //console.log(imageURI);
 	}
 
 	function onFail(message) {
@@ -126,8 +123,8 @@ var createTweets = function(tweets){
 		var tweetText = tweets[x].text;
 		var tweetID = "tweetnumber"+x;
 		var tweetFinder = "#"+tweetID;
-		$("#twittersearch").append('<div id="'+tweetID+'"></div>')
-		$(tweetFinder).append('<img src="'+userimage+'" class="twitter"></a>').append('<h4 class="twitterhead"><a href="http://www.twitter.com/'+username+'">'+username+'</a></h4>').append('<p>'+tweetText+'</p>')
+		$("#twittersearch").append('<div id="'+tweetID+'" class="nameplustweet"></div>')
+		$(tweetFinder).append('<img src="'+userimage+'" class="twitter"></a>').append('<h4 class="twitterhead"><a href="http://www.twitter.com/'+username+'">'+username+'</a></h4>').append('<p class="tweettext">'+tweetText+'</p>')
 	}
 }
 

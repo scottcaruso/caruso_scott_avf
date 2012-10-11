@@ -2,7 +2,7 @@
 //AVF 1210
 //Javascript for Landing App
 
-/*document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false);
 
 function onDeviceReady(){
 	accessCompass();
@@ -68,7 +68,7 @@ function onDeviceReady(){
 	$("#videoplayer").on("click", function(){
 		$("#displaydata").empty();
 		$("#displaydata").append('<section class="movieplayer" id="movieplayer"><h3>Discussion Video</h3><h4>Week 2</h4><video width="320" height="240" controls="controls"><source src="https://dl.dropbox.com/u/110712229/discussion.mp4" type="video/mp4"><source src="https://dl.dropbox.com/u/110712229/discussion.ogv" type="video/ogg"><source src="https://dl.dropbox.com/u/110712229/discussion.webm" type="video/webm"><object data="discussion.mp4" width="320" height="240"></object></video></section>')
-	})*/
+	})
 
 	$("#twitter").on("click", function(){
 		getTwitterFeed();
@@ -77,4 +77,4 @@ function onDeviceReady(){
 	$("#congress").on("click", function(){
 		getCongressPeople()
 	})
-//};
+};
