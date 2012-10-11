@@ -4,7 +4,14 @@
  Demo App - CSS Sheet
  */
 
+body,
 html {
+    margin:0;
+    padding:0;
+    color:#000;
+}
+
+/*html {
     background-image: linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
     background-image: -o-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
     background-image: -moz-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
@@ -18,9 +25,30 @@ html {
         color-stop(0.1, rgb(237,242,252)),
         color-stop(1, rgb(89,119,179))
     );
+}*/
+
+body {
+    width: 768px;
+    margin: 0 auto;
 }
 
-p{
+.left {
+    float:left;
+    width:400px;
+}
+
+.right {
+    text-align: center;
+    float:right;
+    width:368px;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    position: absolute;
+    left: 55%;
+}
+
+p {
     font-size: 11px;
     color: black;
     text-shadow: none;

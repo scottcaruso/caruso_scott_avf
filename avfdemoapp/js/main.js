@@ -66,12 +66,10 @@
 	});*/
 
 	$("#twitter").on("click", function(){
-		alert("Button pressed!");
 		getTwitterFeed();
 	});	
 
 	$("#congress").on("click", function(){
-		alert("Button pressed!")
 		getCongressPeople()
 	})
 //};
