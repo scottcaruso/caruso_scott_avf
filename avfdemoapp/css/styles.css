@@ -4,26 +4,61 @@
  Demo App - CSS Sheet
  */
 
+body,
 html {
-    background-image: linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
-    background-image: -o-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
-    background-image: -moz-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
-    background-image: -webkit-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
-    background-image: -ms-linear-gradient(bottom, rgb(237,242,252) 10%, rgb(89,119,179) 100%);
-
-    background-image: -webkit-gradient(
-        linear,
-        left bottom,
-        left top,
-        color-stop(0.1, rgb(237,242,252)),
-        color-stop(1, rgb(89,119,179))
-    );
+    margin:0;
+    padding:0;
+    color:#000;
 }
 
-p{
+body {
+    width: 768px;
+    margin: 0 auto;
+}
+
+img.twitter {
+    float: left;
+    position: absolute;
+    left: 2%;
+}
+
+div.nameplustweet {
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.left {
+    float: left;
+    position: absolute;
+    left: 1%;
+    width:360px;
+}
+
+.right {
+    text-align: center;
+    float:right;
+    width:348px;
+    background-color:#E0E0E0;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    position: absolute;
+    left: 51%;
+    top: 2%;
+}
+
+p {
     font-size: 11px;
     color: black;
     text-shadow: none;
+}
+
+p.tweettext {
+    display: block;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 50px;
+    text-align: left;
 }
 
 h1 {
@@ -63,4 +98,8 @@ li {
     margin-left: auto;
     margin-right: auto;
     width: 70%;
+}
+
+h2.congressheader {
+    text-decoration: underline;
 }

@@ -3,9 +3,9 @@
 //Javascript for Landing App
 
 document.addEventListener("deviceready", onDeviceReady, false);
-
+//NOTE - In order for the app to work in the Android simulator, it seems that Compass and the EventListener need to be commented out!
 function onDeviceReady(){
-	accessCompass();
+	accessCompass(); //Comment this out for Android deploy.
 	accessGeolocation();
 	localStorage.setItem("photourl","none");
 
@@ -63,5 +63,18 @@ function onDeviceReady(){
 
 	$("#contacts").on("click", function(){
 		alert("Sorry! Scott failed miserably at coding anything good with the contact list, so it doesn't exist yet!")
+	});
+
+	$("#videoplayer").on("click", function(){
+		$("#displaydata").empty();
+		$("#displaydata").append('<section class="movieplayer" id="movieplayer"><h3>Discussion Video</h3><h4>Week 2</h4><video width="320" height="240" controls="controls"><source src="https://dl.dropbox.com/u/110712229/discussion.mp4" type="video/mp4"><source src="https://dl.dropbox.com/u/110712229/discussion.ogv" type="video/ogg"><source src="https://dl.dropbox.com/u/110712229/discussion.webm" type="video/webm"><object data="discussion.mp4" width="320" height="240"></object></video></section>')
+	})
+
+	$("#twitter").on("click", function(){
+		getTwitterFeed();
+	});	
+
+	$("#congress").on("click", function(){
+		getCongressPeople()
 	})
 };
