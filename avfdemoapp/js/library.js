@@ -12,9 +12,6 @@ var accessCamera = function(){
 	function onSuccess(imageURI) {
 	    localStorage.setItem("photourl",imageURI);
 	    displayImage();
-	    //var image = document.getElementById('myImage');
-	    //image.src = imageURI;
-	    //console.log(imageURI);
 	}
 
 	function onFail(message) {
@@ -63,9 +60,103 @@ var displayImage = function(){
 	console.log(imageLocation);
 	var ask = confirm("Would you like to display the picture you just took?");
 		if (ask){
-			$("#picturebucket").append('<div id="picturediv" class="picturediv"></div>')
+			$("#displaydata").empty();
+			$("#displaydata").append('<div id="picturediv" class="picturediv"></div>')
 			$("#picturediv").append('<img id="newpicture" class="newpicture"></img>');
 			$("#newpicture").attr("src",imageLocation);
 		}
 	window.location="#newpicture"
 };
+
+var getTwitterFeed = function(){
+	pleaseWait();
+	$.getJSON("http://search.twitter.com/search.json?q=election&callback=?",
+		function(data) {
+			var tweets = data.results;
+			createTwitterDiv();
+			createTweets(tweets);
+		});
+};
+
+var getCongressPeople = function(){
+	pleaseWait();
+	$.getJSON("http://www.govtrack.us/api/v1/person?roles__current=true&format=jsonp&limit=600&callback=?",
+		function(data) {
+			var currentObject = data.objects;
+			var parseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","O","P","Q","R","S","T","U","V","W","X","Y","Z"];	
+			createAlpha(parseLetters);
+			for (var x = 0; x<currentObject.length; x++){
+				for (var y = 0; y<parseLetters.length; y++){
+					var lastnameString = new String(currentObject[x].lastname)
+					var firstLetter = lastnameString.charAt(0);
+					var currentLetter = parseLetters[y];
+					if (firstLetter === currentLetter){
+						var currentPerson = currentObject[x]
+						createItems(currentPerson,currentLetter);
+					};
+				};
+			}
+			for (var y = 0; y<parseLetters.length; y++){
+				var currentLetter = parseLetters[y];
+				var divID = "#letter"+currentLetter;
+				var thisDiv = $(divID).html();
+				var divString = '<h2 class="congressheader">'+currentLetter+'</h2>';
+				var linkClass = "#link"+currentLetter;
+				if (thisDiv===divString){
+					$(linkClass).remove();
+					$(divID).remove();
+				};
+			};
+	});
+};
+
+var createTwitterDiv = function(){
+	$("#displaydata").empty();
+	$("#displaydata").append('<header><h2>Recent Election Tweets</h2></header>').append('<div class="twitter" id="twittersearch"></div>')
+};
+
+var createTweets = function(tweets){
+	var numberOfTweets = tweets.length;
+	for (x=0; x<numberOfTweets; x++){
+		var username = tweets[x].from_user;
+		var userimage = tweets[x].profile_image_url;
+		var tweetText = tweets[x].text;
+		var tweetID = "tweetnumber"+x;
+		var tweetFinder = "#"+tweetID;
+		$("#twittersearch").append('<div id="'+tweetID+'" class="nameplustweet"></div>')
+		$(tweetFinder).append('<img src="'+userimage+'" class="twitter"></a>').append('<h4 class="twitterhead"><a href="http://www.twitter.com/'+username+'">'+username+'</a></h4>').append('<p class="tweettext">'+tweetText+'</p>')
+	}
+}
+
+var createAlpha = function(parseLetters){
+	$("#displaydata").empty();
+	$("#displaydata").append("<h2>Current U.S. Congresspeople</h2>")
+	$("#displaydata").append('<nav id="quickalphalinks"></nav>')
+	for (var y=0; y<parseLetters.length; y++){
+		var currentLetter = parseLetters[y];
+		var divID = "#letter"+currentLetter;
+		$("#quickalphalinks").append('<a href="'+divID+'" id="link'+currentLetter+'">'+currentLetter+'</a>  ');
+		$("#displaydata").append("<div class='"+divID+"' id='letter"+currentLetter+"'>")
+		$(divID).append('<h2 class="congressheader">'+currentLetter+'</h2>')
+	}
+};
+
+var createItems = function(currentPerson,currentLetter){
+	var divID = "#letter"+currentLetter;
+	var title = currentPerson.current_role.title;
+	var firstName = currentPerson.firstname;
+	var lastName = currentPerson.lastname;
+	var party = currentPerson.current_role.party;
+	var twitter = currentPerson.twitterid;
+	var twitterHandle = "@"+twitter;
+	var state = currentPerson.current_role.state;
+	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>").append("<p>State: "+state+"</p>");
+	if (twitter != ""){
+		$(divID).append('<p>Twitter Handle: '+'<a href="http://www.twitter.com/'+twitter+'">'+twitterHandle+'</a></p>')
+	}
+};
+
+var pleaseWait = function(){
+	$("#displaydata").empty();
+	$("#displaydata").append("Please wait while your data loads!")
+}
