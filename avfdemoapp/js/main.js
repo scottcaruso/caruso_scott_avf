@@ -3,9 +3,9 @@
 //Javascript for Landing App
 
 document.addEventListener("deviceready", onDeviceReady, false);
-
+//NOTE - In order for the app to work in the Android simulator, it seems that Compass and the EventListener need to be commented out!
 function onDeviceReady(){
-	accessCompass();
+	accessCompass(); //Comment this out for Android deploy.
 	accessGeolocation();
 	localStorage.setItem("photourl","none");
 
