@@ -2,11 +2,11 @@
 //AVF 1210
 //Javascript for Landing App
 
-document.addEventListener("deviceready", onDeviceReady, false);
+//document.addEventListener("deviceready", onDeviceReady, false);
 //NOTE - In order for the app to work in the Android simulator, it seems that Compass and the EventListener need to be commented out!
-function onDeviceReady(){
-	accessCompass(); //Comment this out for Android deploy.
-	accessGeolocation();
+//function onDeviceReady(){
+	//accessCompass(); //Comment this out for Android deploy.
+	//accessGeolocation();
 	localStorage.setItem("photourl","none");
 
 	$("#camera").on("click", function(){
@@ -14,11 +14,11 @@ function onDeviceReady(){
 	});
 
 	$("#notification").on("click", function(){
-		makeBeep(1);	
+		//makeBeep(1);
 	});
 
 	$("#geolocation").on("click", function(){
-		var myLat = localStorage.getItem("latitude");
+		/*var myLat = localStorage.getItem("latitude");
 		var minLat = myLat-5;
 		var maxLat = myLat-(-5);
 		var lat = prompt("Guessing game! Enter a number between -90 and 90 to try and guess your latitude within 5 degrees!","0");
@@ -35,7 +35,8 @@ function onDeviceReady(){
 			} else {
 				alert("Please enter a valid number!");
 				window.location.reload;
-			};
+			};*/
+		accessGeolocation();	
 	});
 
 	$("#compass").on("click", function(){
@@ -77,4 +78,4 @@ function onDeviceReady(){
 	$("#congress").on("click", function(){
 		getCongressPeople()
 	})
-};
+//};

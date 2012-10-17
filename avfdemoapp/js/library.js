@@ -22,8 +22,11 @@ var accessCamera = function(){
 //Geolocation
 var accessGeolocation = function(){
 	var onSuccess = function(position) {
-		var myLatitude = position.coords.latitude;
-	    localStorage.setItem("latitude",myLatitude)
+		var lat = position.coords.latitude;
+		var longi = position.coords.longitude;
+	    //localStorage.setItem("latitude",myLatitude);
+	    //localStorage.setItem("longitude",myLongitude);
+	    getDistrict(lat,longi);
 	};
 
 	// onError Callback receives a PositionError object
@@ -78,14 +81,14 @@ var getTwitterFeed = function(){
 		});
 };
 
-var getCongressPeople = function(){
+var getCongressPeople = function(state,number){
 	pleaseWait();
 	$.getJSON("http://www.govtrack.us/api/v1/person?roles__current=true&format=jsonp&limit=600&callback=?",
 		function(data) {
 			var currentObject = data.objects;
 			var parseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","O","P","Q","R","S","T","U","V","W","X","Y","Z"];	
 			createAlpha(parseLetters);
-			for (var x = 0; x<currentObject.length; x++){
+			/*for (var x = 0; x<currentObject.length; x++){
 				for (var y = 0; y<parseLetters.length; y++){
 					var lastnameString = new String(currentObject[x].lastname)
 					var firstLetter = lastnameString.charAt(0);
@@ -95,7 +98,26 @@ var getCongressPeople = function(){
 						createItems(currentPerson,currentLetter);
 					};
 				};
-			}
+			}*/
+			var currentObject = data.objects;
+			for (var x=0; x<currentObject.length; x++){
+				var thisPersonsState = currentObject[x].current_role.state;
+				if (thisPersonsState===state){
+					if (currentObject[x].current_role.role_type==="senator"){		
+						var currentPerson = currentObject[x];
+						var lastnameString = new String(currentObject[x].lastname)
+						var firstLetter = lastnameString.charAt(0);
+						createItems(currentPerson,firstLetter);
+					} else if (currentObject[x].current_role.role_type==="representative"){
+						if (currentObject[x].current_role.district==number){
+							var currentPerson = currentObject[x];
+							var lastnameString = new String(currentObject[x].lastname)
+							var firstLetter = lastnameString.charAt(0);
+							createItems(currentPerson,firstLetter);	
+						};
+					};		
+				};
+			};
 			for (var y = 0; y<parseLetters.length; y++){
 				var currentLetter = parseLetters[y];
 				var divID = "#letter"+currentLetter;
@@ -107,7 +129,7 @@ var getCongressPeople = function(){
 					$(divID).remove();
 				};
 			};
-	});
+		});
 };
 
 var createTwitterDiv = function(){
@@ -147,10 +169,11 @@ var createItems = function(currentPerson,currentLetter){
 	var firstName = currentPerson.firstname;
 	var lastName = currentPerson.lastname;
 	var party = currentPerson.current_role.party;
+	var role = currentPerson.current_role.role_type_label;
 	var twitter = currentPerson.twitterid;
 	var twitterHandle = "@"+twitter;
 	var state = currentPerson.current_role.state;
-	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>").append("<p>State: "+state+"</p>");
+	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>").append("<p>State: "+state+"</p>").append("<p>Role: "+role+"</p>");
 	if (twitter != ""){
 		$(divID).append('<p>Twitter Handle: '+'<a href="http://www.twitter.com/'+twitter+'">'+twitterHandle+'</a></p>')
 	}
@@ -159,4 +182,16 @@ var createItems = function(currentPerson,currentLetter){
 var pleaseWait = function(){
 	$("#displaydata").empty();
 	$("#displaydata").append("Please wait while your data loads!")
+}
+
+//Retrieve the congressional district from location
+var getDistrict = function(lat,longi){
+	var url = "http://services.sunlightlabs.com/api/districts.getDistrictFromLatLong.json?apikey=eab4e1dfef1e467b8a25ed1eab0f7544&latitude="+lat+"&longitude="+longi+"&jsonp=?";
+	console.log(url);
+	$.getJSON(url,
+		function(data){
+			var state = data.response.districts[0].district.state;
+			var number = data.response.districts[0].district.number;
+			getCongressPeople(state,number);
+		});
 }
