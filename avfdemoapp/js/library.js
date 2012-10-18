@@ -230,17 +230,7 @@ var getSomeCongressPeople = function(state,number,numbers){
 					};		
 				};
 			};
-			for (var y = 0; y<parseLetters.length; y++){
-				var currentLetter = parseLetters[y];
-				var divID = "#letter"+currentLetter;
-				var thisDiv = $(divID).html();
-				var divString = '<h2 class="congressheader">'+currentLetter+'</h2>';
-				var linkClass = "#link"+currentLetter;
-				if (thisDiv===divString){
-					$(linkClass).remove();
-					$(divID).remove();
-				};
-			};
+			$("#backtomain").append('<p><a href="launch.html" id="backtolaunch">Return to launch page.</a></p>')
 		});
 };
 
@@ -321,6 +311,7 @@ var createItemsForGeoList = function(currentPerson,currentLetter){
 //This function simply empties the display Div and displays a message to the user to wait.
 var pleaseWait = function(){
 	$("#displaydata").empty();
+	$("#launch").empty();
 	$("#displaydata").append("Please wait while your data loads!")
 };
 
