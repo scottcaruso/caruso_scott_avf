@@ -1,0 +1,25 @@
+/*
+ Scott Caruso
+ AVF 1210
+ Demo App - Launch Page
+ */
+
+div.launch {
+	position: fixed;
+  	left: 50%;
+  	top: 50%;
+  	margin-top: -125px;
+  	margin-left: -175px;
+}
+
+div.display{
+	text-align: center;
+}
+
+p {
+	text-align: center;
+}
+
+div.backtomain{
+	padding-top: 20px;
+}
