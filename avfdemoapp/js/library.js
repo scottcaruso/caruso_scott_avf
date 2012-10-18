@@ -285,7 +285,7 @@ var createItemsForFullList = function(currentPerson,currentLetter){
 	var twitter = currentPerson.twitterid;
 	var twitterHandle = "@"+twitter;
 	var state = currentPerson.current_role.state;
-	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>").append("<p>State: "+state+"</p>").append("<p>Role: "+role+"</p>");
+	$(divID).append("<h4>"+title+" "+firstName+" "+lastName+"</h4>").append("<p>Party: "+party+"</p>").append("<p>State: "+state+"</p>").append("<p>Role: "+role+"</p>");
 	if (twitter != ""){
 		$(divID).append('<p>Twitter Handle: '+'<a href="http://www.twitter.com/'+twitter+'">'+twitterHandle+'</a></p>')
 	}
@@ -302,7 +302,7 @@ var createItemsForGeoList = function(currentPerson,currentLetter){
 	var twitter = currentPerson.twitterid;
 	var twitterHandle = "@"+twitter;
 	//var state = currentPerson.current_role.state;
-	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>");
+	$(divID).append("<h4>"+title+" "+firstName+" "+lastName+"</h4>").append("<p>Party: "+party+"</p>");
 	if (twitter != ""){
 		$(divID).append('<p>Twitter Handle: '+'<a href="http://www.twitter.com/'+twitter+'">'+twitterHandle+'</a></p>')
 	}
