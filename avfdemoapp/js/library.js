@@ -200,7 +200,7 @@ var getSomeCongressPeople = function(state,number,numbers){
 		function(data) {
 			var currentObject = data.objects;
 			var parseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];	
-			createAlpha(parseLetters);
+			createAlphaNoLinks(parseLetters,state);
 			var currentObject = data.objects;
 			for (var x=0; x<currentObject.length; x++){
 				var thisPersonsState = currentObject[x].current_role.state;
@@ -259,6 +259,20 @@ var createAlpha = function(parseLetters){
 	}
 };
 
+//This function is the same as above, but doesn't create the nav links.
+var createAlphaNoLinks = function(parseLetters,state){
+	$("#displaydata").empty();
+	$("#displaydata").append("<h2>Current U.S. Congresspeople</h2>")
+	var stateLong = retrieveStateFromAbbreviation(state);
+	$("#displaydata").append("<h3>Representing the people of "+stateLong);
+	for (var y=0; y<parseLetters.length; y++){
+		var currentLetter = parseLetters[y];
+		var divID = "#letter"+currentLetter;
+		$("#displaydata").append("<div class='"+divID+"' id='letter"+currentLetter+"'>")
+		$(divID).append('<h2 class="congressheader">'+currentLetter+'</h2>')
+	}
+};
+
 //This functionc reates individual congresspeople in the DIVs above.
 var createItems = function(currentPerson,currentLetter){
 	var divID = "#letter"+currentLetter;
@@ -280,4 +294,61 @@ var createItems = function(currentPerson,currentLetter){
 var pleaseWait = function(){
 	$("#displaydata").empty();
 	$("#displaydata").append("Please wait while your data loads!")
+};
+
+var retrieveStateFromAbbreviation = function(state){
+	var stateList = {
+		"AL": "Alabama",
+		"AK": "Alaska",
+		"AZ": "Arizona",
+		"AR": "Arkansas",
+		"CA": "California",
+		"CO": "Colorado",
+		"CT": "Connecticut",
+		"DE": "Delaware",
+		"FL": "Florida",
+		"GA": "Georgia",
+		"HI": "Hawaii",
+		"ID": "Idaho",
+		"IL": "Illinois",
+		"IN": "Indiana",
+		"IA": "Iowa",
+		"KS": "Kansas",
+		"KY": "Kentucky",
+		"LA": "Louisana",
+		"ME": "Maine",
+		"MD": "Maryland",
+		"MA": "Massachusetts",
+		"MI": "Michigan",
+		"MN": "Minnesota",
+		"MS": "Mississippi",
+		"MO": "Missouri",
+		"MT": "Montana",
+		"NE": "Nebraska",
+		"NV": "Nevada",
+		"NH": "New Hampshire",
+		"NJ": "New Jersey",
+		"NM": "New Mexico",
+		"NY": "New York",
+		"NC": "North Carolina",
+		"ND": "North Dakota",
+		"OH": "Ohio",
+		"OK": "Oklahoma",
+		"OR": "Oregon",
+		"PA": "Pennsylvania",
+		"RI": "Rhode Island",
+		"SC": "South Carolina",
+		"SD": "South Dakota",
+		"TN": "Tennessee",
+		"TX": "Texas",
+		"UT": "Utah",
+		"VT": "Vermont",
+		"VA": "Virginia",
+		"WA": "Washington",
+		"WV": "West Virginia",
+		"WI": "Wisconsin",
+		"WY": "Wyoming" }
+	var stateLongName = stateList.state;
+	return stateLongName;
+	console.log(stateLongName);
 };
