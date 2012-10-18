@@ -14,13 +14,16 @@
 	});
 
 	$("#notification").on("click", function(){
-		//makeBeep();
-		zipcodeLookup();
+		makeBeep(3);
 	});
 
 	$("#geolocation").on("click", function(){
 		accessGeolocation();	
 	});
+
+	$("#zipcodeentry").on("click", function(){
+		zipcodeLookup();
+	})
 
 	$("#compass").on("click", function(){
 		var heading = localStorage.getItem("heading");
@@ -43,10 +46,6 @@
 		};
 		alert("Avast, ye landlubber! Thar fancy compass be pointin' ye on a " + direction + " course.")
 		window.location.reload;
-	});
-
-	$("#contacts").on("click", function(){
-		alert("Sorry! Scott failed miserably at coding anything good with the contact list, so it doesn't exist yet!")
 	});
 
 	$("#videoplayer").on("click", function(){

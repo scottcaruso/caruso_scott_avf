@@ -35,13 +35,13 @@ var accessCompass = function(){
 
 
 //Notification
-var makeBeep = function(){
+var makeBeep = function(times){
 	navigator.notification.beep(times);
 };
 
 //Function to ask the user for a Zipcode.
 var zipcodeLookup = function(){
-	var question = prompt("Please enter a zipcode!");
+	var question = prompt("Please enter a zipcode. Please note: some zipcodes include multiple districts, so you may return multiple representatives and districts.");
 	var questionString = new String (question);
 	if (questionString.length != 5){
 		alert("Please enter a valid zipcode in 5-digit format.")
@@ -175,7 +175,7 @@ var getAllCongressPeople = function(){
 					var currentLetter = parseLetters[y];
 					if (firstLetter === currentLetter){
 						var currentPerson = currentObject[x]
-						createItems(currentPerson,currentLetter);
+						createItemsForFullList(currentPerson,currentLetter);
 					};
 				};
 			};
@@ -200,7 +200,7 @@ var getSomeCongressPeople = function(state,number,numbers){
 		function(data) {
 			var currentObject = data.objects;
 			var parseLetters = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];	
-			createAlphaNoLinks(parseLetters,state);
+			createAlphaNoLinks(parseLetters,state,number,numbers);
 			var currentObject = data.objects;
 			for (var x=0; x<currentObject.length; x++){
 				var thisPersonsState = currentObject[x].current_role.state;
@@ -209,7 +209,7 @@ var getSomeCongressPeople = function(state,number,numbers){
 						var currentPerson = currentObject[x];
 						var lastnameString = new String(currentObject[x].lastname)
 						var firstLetter = lastnameString.charAt(0);
-						createItems(currentPerson,firstLetter);
+						createItemsForGeoList(currentPerson,firstLetter);
 					}; 
 					if (currentObject[x].current_role.role_type==="representative"){
 						if (numbers != "Only 1 District"){
@@ -219,14 +219,14 @@ var getSomeCongressPeople = function(state,number,numbers){
 									var currentPerson = currentObject[x];
 									var lastnameString = new String(currentObject[x].lastname)
 									var firstLetter = lastnameString.charAt(0);
-									createItems(currentPerson,firstLetter);	
+									createItemsForGeoList(currentPerson,firstLetter);
 								};
 							};
 						} else if (currentObject[x].current_role.district==number){
 							var currentPerson = currentObject[x];
 							var lastnameString = new String(currentObject[x].lastname)
 							var firstLetter = lastnameString.charAt(0);
-							createItems(currentPerson,firstLetter);	
+							createItemsForGeoList(currentPerson,firstLetter);	
 						};
 					};		
 				};
@@ -260,21 +260,33 @@ var createAlpha = function(parseLetters){
 };
 
 //This function is the same as above, but doesn't create the nav links.
-var createAlphaNoLinks = function(parseLetters,state){
+var createAlphaNoLinks = function(parseLetters,state,number,numbers){
 	$("#displaydata").empty();
 	$("#displaydata").append("<h2>Current U.S. Congresspeople</h2>")
 	var stateLong = retrieveStateFromAbbreviation(state);
-	$("#displaydata").append("<h3>Representing the people of "+stateLong);
+	if (number != 0){
+		if (numbers != "Only 1 District"){
+			var numberOfDistricts = numbers.length;
+			if (numberOfDistricts === 2){
+				$("#displaydata").append("<h3>Representing Districts "+numbers[0]+" and "+numbers[1]+" of "+stateLong);
+			} else {
+				$("#displaydata").append("<h3>Representing Districts "+numbers[0]+", "+numbers[1]+", and "+numbers[2]+" of "+stateLong);
+			};
+		} else {
+			$("#displaydata").append("<h3>Representing District "+number+" of "+stateLong);
+		}
+	} else {
+		$("#displaydata").append("<h3>Representing the entire state of "+stateLong);
+	}
 	for (var y=0; y<parseLetters.length; y++){
 		var currentLetter = parseLetters[y];
 		var divID = "#letter"+currentLetter;
 		$("#displaydata").append("<div class='"+divID+"' id='letter"+currentLetter+"'>")
-		$(divID).append('<h2 class="congressheader">'+currentLetter+'</h2>')
 	}
 };
 
 //This functionc reates individual congresspeople in the DIVs above.
-var createItems = function(currentPerson,currentLetter){
+var createItemsForFullList = function(currentPerson,currentLetter){
 	var divID = "#letter"+currentLetter;
 	var title = currentPerson.current_role.title;
 	var firstName = currentPerson.firstname;
@@ -290,6 +302,23 @@ var createItems = function(currentPerson,currentLetter){
 	}
 };
 
+//This functionc reates individual congresspeople in the DIVs above.
+var createItemsForGeoList = function(currentPerson,currentLetter){
+	var divID = "#letter"+currentLetter;
+	var title = currentPerson.current_role.title;
+	var firstName = currentPerson.firstname;
+	var lastName = currentPerson.lastname;
+	var party = currentPerson.current_role.party;
+	//var role = currentPerson.current_role.role_type_label;
+	var twitter = currentPerson.twitterid;
+	var twitterHandle = "@"+twitter;
+	//var state = currentPerson.current_role.state;
+	$(divID).append("<h3>"+title+" "+firstName+" "+lastName+"</h3>").append("<p>Party: "+party+"</p>");
+	if (twitter != ""){
+		$(divID).append('<p>Twitter Handle: '+'<a href="http://www.twitter.com/'+twitter+'">'+twitterHandle+'</a></p>')
+	}
+};
+
 //This function simply empties the display Div and displays a message to the user to wait.
 var pleaseWait = function(){
 	$("#displaydata").empty();
@@ -298,57 +327,56 @@ var pleaseWait = function(){
 
 var retrieveStateFromAbbreviation = function(state){
 	var stateList = {
-		"AL": "Alabama",
-		"AK": "Alaska",
-		"AZ": "Arizona",
-		"AR": "Arkansas",
-		"CA": "California",
-		"CO": "Colorado",
-		"CT": "Connecticut",
-		"DE": "Delaware",
-		"FL": "Florida",
-		"GA": "Georgia",
-		"HI": "Hawaii",
-		"ID": "Idaho",
-		"IL": "Illinois",
-		"IN": "Indiana",
-		"IA": "Iowa",
-		"KS": "Kansas",
-		"KY": "Kentucky",
-		"LA": "Louisana",
-		"ME": "Maine",
-		"MD": "Maryland",
-		"MA": "Massachusetts",
-		"MI": "Michigan",
-		"MN": "Minnesota",
-		"MS": "Mississippi",
-		"MO": "Missouri",
-		"MT": "Montana",
-		"NE": "Nebraska",
-		"NV": "Nevada",
-		"NH": "New Hampshire",
-		"NJ": "New Jersey",
-		"NM": "New Mexico",
-		"NY": "New York",
-		"NC": "North Carolina",
-		"ND": "North Dakota",
-		"OH": "Ohio",
-		"OK": "Oklahoma",
-		"OR": "Oregon",
-		"PA": "Pennsylvania",
-		"RI": "Rhode Island",
-		"SC": "South Carolina",
-		"SD": "South Dakota",
-		"TN": "Tennessee",
-		"TX": "Texas",
-		"UT": "Utah",
-		"VT": "Vermont",
-		"VA": "Virginia",
-		"WA": "Washington",
-		"WV": "West Virginia",
-		"WI": "Wisconsin",
-		"WY": "Wyoming" }
-	var stateLongName = stateList.state;
+		AL: "Alabama",
+		AK: "Alaska",
+		AZ: "Arizona",
+		AR: "Arkansas",
+		CA: "California",
+		CO: "Colorado",
+		CT: "Connecticut",
+		DE: "Delaware",
+		FL: "Florida",
+		GA: "Georgia",
+		HI: "Hawaii",
+		ID: "Idaho",
+		IL: "Illinois",
+		IN: "Indiana",
+		IA: "Iowa",
+		KS: "Kansas",
+		KY: "Kentucky",
+		LA: "Louisana",
+		ME: "Maine",
+		MD: "Maryland",
+		MA: "Massachusetts",
+		MI: "Michigan",
+		MN: "Minnesota",
+		MS: "Mississippi",
+		MO: "Missouri",
+		MT: "Montana",
+		NE: "Nebraska",
+		NV: "Nevada",
+		NH: "New Hampshire",
+		NJ: "New Jersey",
+		NM: "New Mexico",
+		NY: "New York",
+		NC: "North Carolina",
+		ND: "North Dakota",
+		OH: "Ohio",
+		OK: "Oklahoma",
+		OR: "Oregon",
+		PA: "Pennsylvania",
+		RI: "Rhode Island",
+		SC: "South Carolina",
+		SD: "South Dakota",
+		TN: "Tennessee",
+		TX: "Texas",
+		UT: "Utah",
+		VT: "Vermont",
+		VA: "Virginia",
+		WA: "Washington",
+		WV: "West Virginia",
+		WI: "Wisconsin",
+		WY: "Wyoming" }
+	var stateLongName = stateList[state];
 	return stateLongName;
-	console.log(stateLongName);
 };
