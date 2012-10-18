@@ -251,6 +251,8 @@ var createAlpha = function(parseLetters){
 //This function is the same as above, but doesn't create the nav links.
 var createAlphaNoLinks = function(parseLetters,state,number,numbers){
 	$("#displaydata").empty();
+	$("#displaydata").attr("style","");
+	$("#displaydata").attr("style","width:348px;background-color:#E0E0E0;border-color: black;border-style: solid;border-width: 1px;position: relative;margin-left:-174px;left: 50%;top: 2%;bottom: 2%")
 	$("#displaydata").append("<h2>Current U.S. Congresspeople</h2>")
 	var stateLong = retrieveStateFromAbbreviation(state);
 	if (number != 0){
