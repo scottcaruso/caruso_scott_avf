@@ -2,11 +2,10 @@
 //AVF 1210
 //Javascript for Landing App
 
-//document.addEventListener("deviceready", onDeviceReady, false);
+document.addEventListener("deviceready", onDeviceReady, false);
 //NOTE - In order for the app to work in the Android simulator, it seems that Compass and the EventListener need to be commented out!
-//function onDeviceReady(){
-	//accessCompass(); //Comment this out for Android deploy.
-	//accessGeolocation();
+function onDeviceReady(){
+	accessCompass(); //Comment this out for Android deploy.
 	localStorage.setItem("photourl","none");
 
 	$("#camera").on("click", function(){
@@ -60,4 +59,4 @@
 	$("#congress").on("click", function(){
 		getAllCongressPeople()
 	})
-//};
+};

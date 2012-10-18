@@ -33,7 +33,6 @@ var accessCompass = function(){
 	navigator.compass.getCurrentHeading(onSuccess, onError);
 };
 
-
 //Notification
 var makeBeep = function(times){
 	navigator.notification.beep(times);
