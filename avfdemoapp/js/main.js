@@ -64,4 +64,4 @@ function onDeviceReady(){
 	$("#congress").on("click", function(){
 		getAllCongressPeople()
 	})
-//};
+};
